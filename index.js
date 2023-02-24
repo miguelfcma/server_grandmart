@@ -1,12 +1,8 @@
 import app from "./app.js";
 import { sequelizeDB } from "./database/db.js";
-import cors from "cors";
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
-
+/*import cors from "cors";
+app.use(cors());
+*/
 async function main() {
   try {
     await sequelizeDB.sync({ force: false });

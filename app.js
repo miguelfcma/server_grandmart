@@ -3,6 +3,12 @@ import cors from "cors";
 
 const app = express();
 
+// Configuración de CORS
+app.use(
+  cors({
+    origin: "*", // O el dominio que permitirás
+  })
+);
 
 import serviciosRoutes from "./routes/serviciosRoutes/servicios.routes.js";
 import productoRoutes from "./routes/productosRoutes/productos.routes.js";
@@ -15,14 +21,11 @@ import categoriaRoutes from "./routes/categoriasRoutes/categorias.routes.js";
 //esto permitira que cada vez que se envia algo al servidor en formato json
 //el servidor podra leerlo e interpretarlo guardandolo en req.body
 app.use(express.json());
-app.use(
-    cors({
-      origin: "http://localhost:5173",
-    })
-  );
+
 app.use(usuariosRoutes);
 app.use(categoriaRoutes);
 app.use(imagenUsuariosRoutes);
 app.use(productoRoutes);
 app.use(serviciosRoutes);
+
 export default app;
