@@ -63,7 +63,7 @@ export const createUsuario = async (req, res) => {
       });
       res
         .status(201)
-        .json({newUsuario, message: "Usuario creado correctamente" });
+        .json({message: "Usuario creado correctamente" });
     } else {
       // Si el usuario ya existe, devolver un mensaje de error
       return res
