@@ -1,16 +1,28 @@
-import { ImagenUsuario } from "../../models/usuariosModel/ImagenesUsuarios.js";
+/*import { ImagenUsuario } from "../../models/usuariosModel/ImagenesUsuarios.js";
 import fs from "fs/promises";
-// Create
+import multer from "multer";
+import path from "path";
 
+// Configurar multer para guardar las imágenes en el directorio 'uploads'
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  }
+});
+const upload = multer({ storage });
+
+// Crear una nueva imagen de usuario
 export const createImagenUsuario = async (req, res) => {
-  const { titulo, ruta, extension } = req.body;
-  res.json(titulo, ruta, extension);
   try {
-    const imagenBuffer = await fs.readFile(ruta);
+    // La imagen se encuentra en el campo 'image' del objeto FormData
     const imagen = await ImagenUsuario.create({
-      titulo: titulo,
-      contenido: imagenBuffer,
-      extension: extension,
+      titulo: req.body.titulo,
+      contenido: req.file.buffer, // El archivo se encuentra en 'req.file.buffer'
+      extension: path.extname(req.file.originalname),
     });
     res.status(201).json(imagen);
   } catch (error) {
@@ -19,7 +31,7 @@ export const createImagenUsuario = async (req, res) => {
   }
 };
 
-// Read
+// Leer una imagen de usuario por su ID
 export async function getImagenUsuarioById(id) {
   try {
     const imagen = await ImagenUsuario.findByPk(id);
@@ -32,6 +44,7 @@ export async function getImagenUsuarioById(id) {
   }
 }
 
+// Leer todas las imágenes de usuario
 export async function getAllImagenUsuarios() {
   try {
     const imagenes = await ImagenUsuario.findAll();
@@ -41,7 +54,7 @@ export async function getAllImagenUsuarios() {
   }
 }
 
-// Update
+// Actualizar una imagen de usuario por su ID
 export async function updateImagenUsuario(id, titulo, contenido, extension) {
   try {
     const imagen = await ImagenUsuario.findByPk(id);
@@ -58,7 +71,7 @@ export async function updateImagenUsuario(id, titulo, contenido, extension) {
   }
 }
 
-// Delete
+// Eliminar una imagen de usuario por su ID
 export async function deleteImagenUsuario(id) {
   try {
     const imagen = await ImagenUsuario.findByPk(id);
@@ -71,3 +84,4 @@ export async function deleteImagenUsuario(id) {
     console.error(error);
   }
 }
+*/

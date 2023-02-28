@@ -1,4 +1,4 @@
-import { Router } from "express";
+/*import { Router } from "express";
 
 import { createImagenUsuario} from "../../controllers/usuariosControllers/imagenesUsuario.controllers.js";
 
@@ -17,3 +17,4 @@ router.post("/imagenUsuarios", createImagenUsuario);
 
 
 export default router;
+**/

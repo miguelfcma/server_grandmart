@@ -110,7 +110,7 @@ export const updateUsuario = async (req, res) => {
     // Envía una respuesta exitosa
     res
       .status(200)
-      .json({ updateUsuario, message: "Usuario actualizado correctamente" });
+      .json({ message: "Usuario actualizado correctamente" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
