@@ -1,10 +1,10 @@
-/*import { ImagenUsuario } from "../../models/usuariosModel/ImagenesUsuarios.js";
-import fs from "fs/promises";
+import { ImagenUsuario } from "../../models/usuariosModel/ImagenesUsuarios.js";
+/*import fs from "fs/promises";
 import multer from "multer";
 import path from "path";
-
+*/
 // Configurar multer para guardar las imágenes en el directorio 'uploads'
-const storage = multer.diskStorage({
+/*const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
   },
@@ -14,23 +14,16 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
-
+*/
 // Crear una nueva imagen de usuario
-export const createImagenUsuario = async (req, res) => {
-  try {
-    // La imagen se encuentra en el campo 'image' del objeto FormData
-    const imagen = await ImagenUsuario.create({
-      titulo: req.body.titulo,
-      contenido: req.file.buffer, // El archivo se encuentra en 'req.file.buffer'
-      extension: path.extname(req.file.originalname),
-    });
-    res.status(201).json(imagen);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
-  }
+export const createImagenUsuario = (req, res) => {
+  const imagen = req.file;
+  const nombreArchivo = imagen.filename;
+  const rutaArchivo = imagen.path;
+  // Aquí podrías procesar la imagen y almacenarla en algún lugar
+  res.send("La imagen ha sido cargada exitosamente.");
 };
-
+/*
 // Leer una imagen de usuario por su ID
 export async function getImagenUsuarioById(id) {
   try {
