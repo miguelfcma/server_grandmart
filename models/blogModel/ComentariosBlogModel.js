@@ -14,8 +14,11 @@ export const ComentarioBlog = sequelizeDB.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    id_publicacionBlog: {
+      type: DataTypes.BIGINT(20).UNSIGNED,
+      autoIncrement: false,
+      allowNull: false,
+    },
   },
   { timestamps: true }
 );
-
-

@@ -1,80 +1,77 @@
-import { ImagenUsuario } from "../../models/usuariosModel/ImagenesUsuarios.js";
-/*import fs from "fs/promises";
-import multer from "multer";
+import { ImagenUsuario } from "../../models/usuariosModel/ImagenesUsuariosModel.js";
 import path from "path";
-*/
-// Configurar multer para guardar las imágenes en el directorio 'uploads'
-/*const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, Date.now() + ext);
-  }
-});
-const upload = multer({ storage });
-*/
+import { Console } from "console";
 // Crear una nueva imagen de usuario
-export const createImagenUsuario = (req, res) => {
-  const imagen = req.file;
-  const nombreArchivo = imagen.filename;
-  const rutaArchivo = imagen.path;
-  // Aquí podrías procesar la imagen y almacenarla en algún lugar
-  res.send("La imagen ha sido cargada exitosamente.");
-};
-/*
-// Leer una imagen de usuario por su ID
-export async function getImagenUsuarioById(id) {
+export const createImagenUsuario = async (req, res) => {
   try {
-    const imagen = await ImagenUsuario.findByPk(id);
-    if (!imagen) {
-      throw new Error("Imagen no encontrada");
-    }
-    return imagen;
-  } catch (error) {
-    console.error(error);
-  }
-}
+    // Obtenemos los datos de la imagen subida desde el objeto req.file
+    const { filename, mimetype, size, path: filePath } = req.file;
 
-// Leer todas las imágenes de usuario
-export async function getAllImagenUsuarios() {
+    // Obtenemos el id del usuario desde el objeto req.body
+    //const { id } = req.body;
+    const id = 34;
+    // Creamos un nuevo objeto ImagenUsuario con los datos de la imagen y el id del usuario
+    const nuevaImagen = await ImagenUsuario.create({
+      nombre: filename,
+      ruta: filePath,
+      tipo_archivo: mimetype,
+      tamano_archivo: size,
+      id_usuario: id,
+    });
+
+    res.status(201).json({ mensaje: "Imagen creada", imagen: nuevaImagen });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al crear la imagen" });
+  }
+};
+
+// Obtener todas las imágenes de usuario
+export const getImagenesUsuario = async (req, res) => {
   try {
     const imagenes = await ImagenUsuario.findAll();
-    return imagenes;
+    res.status(200).json({ imagenes: imagenes });
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al obtener las imágenes" });
   }
-}
+};
 
-// Actualizar una imagen de usuario por su ID
-export async function updateImagenUsuario(id, titulo, contenido, extension) {
+// Obtener una imagen de usuario por ID
+export const getImagenUsuarioById = async (req, res) => {
   try {
-    const imagen = await ImagenUsuario.findByPk(id);
-    if (!imagen) {
-      throw new Error("Imagen no encontrada");
-    }
-    imagen.titulo = titulo;
-    imagen.contenido = contenido;
-    imagen.extension = extension;
-    await imagen.save();
-    return imagen;
-  } catch (error) {
-    console.error(error);
-  }
-}
+    const imagen = await ImagenUsuario.findByPk(req.params.id);
 
-// Eliminar una imagen de usuario por su ID
-export async function deleteImagenUsuario(id) {
-  try {
-    const imagen = await ImagenUsuario.findByPk(id);
-    if (!imagen) {
-      throw new Error("Imagen no encontrada");
-    }
-    await imagen.destroy();
-    return imagen;
+    //Construir la ruta completa de la imagen en el servidor
+    const rutaImagen = path.join(
+      path.dirname(new URL(import.meta.url).pathname).substring(4),
+      "..",
+      "..",
+      "public",
+      "avatars",
+      imagen.nombre
+    );
+    console.log(rutaImagen);
+    res.sendFile(rutaImagen, { root: "/" });
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al obtener la imagen" });
   }
-}
-*/
+};
+
+// Actualizar una imagen de usuario por ID
+export const updateImagenUsuarioById = async (req, res) => {
+  try {
+    const { nombre, ruta, tipo_archivo, tamano_archivo, id_usuario } = req.body;
+    const imagenActualizada = await ImagenUsuario.update(
+      { nombre, ruta, tipo_archivo, tamano_archivo, id_usuario },
+      { where: { id: req.params.id } }
+    );
+    res
+      .status(200)
+      .json({ mensaje: "Imagen actualizada", imagen: imagenActualizada });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al actualizar la imagen" });
+  }
+};

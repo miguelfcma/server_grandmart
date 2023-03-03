@@ -10,12 +10,27 @@ export const ImagenServicio = sequelizeDB.define(
       autoIncrement: true,
       allowNull: false,
     },
-    titulo: {
-      type: DataTypes.TEXT,
+    nombre: {
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
-    contenido: { type: DataTypes.BLOB, allowNull: false },
-    extension: { type: DataTypes.STRING(4), allowNull: false },
+    ruta: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    tipo_archivo: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    tamano_archivo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    id_servicio: {
+      type: DataTypes.BIGINT(20).UNSIGNED,
+      autoIncrement: false,
+      allowNull: false,
+    },
   },
   { timestamps: true }
 );

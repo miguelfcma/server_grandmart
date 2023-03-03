@@ -3,15 +3,15 @@ import { FavoritosProducto } from "../productosModel/FavoritoProductoModel.js";
 import { ImagenProducto } from "../productosModel/ImagenesProductoModel.js";
 import { ReviewProducto } from "../productosModel/ReviewsProductosModel.js";
 import { PreguntaProducto } from "../productosModel/PreguntasProductoModel.js";
-import { CarritoProductos } from "../productosModel/CarritoProductos.js";
+import { CarritoProductos } from "../productosModel/CarritoProductosModel.js";
 
 import { ProductosOrden } from "../ordenesModel/ProductosOrdenModel.js";
 import { Orden } from "../ordenesModel/OrdenModel.js";
-import { EstadoPago } from "../ordenesModel/EstadoPago.js";
-import { EstadoPedido } from "../ordenesModel/EstadoPedido.js";
+import { EstadoPago } from "../ordenesModel/EstadoPagoModel.js";
+import { EstadoPedido } from "../ordenesModel/EstadoPedidoModel.js";
 
 import { Usuario } from "../usuariosModel/UsuarioModel.js";
-import { ImagenUsuario } from "../usuariosModel/ImagenesUsuarios.js";
+import { ImagenUsuario } from "../usuariosModel/ImagenesUsuariosModel.js";
 import { DomicilioUsuario } from "../usuariosModel/DomicilioUsuarioModel.js";
 
 import { ImagenServicio } from "../serviciosModel/ImagenesServiciosModel.js";

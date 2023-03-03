@@ -10,6 +10,16 @@ export const Orden = sequelizeDB.define(
       autoIncrement: true,
       allowNull: false,
     },
+    id_estadoPedido: {
+      type: DataTypes.BIGINT(20).UNSIGNED,
+      autoIncrement: false,
+      allowNull: false,
+    },
+    id_estadoPago: {
+      type: DataTypes.BIGINT(20).UNSIGNED,
+      autoIncrement: false,
+      allowNull: false,
+    },
   },
   { timestamps: true }
 );
