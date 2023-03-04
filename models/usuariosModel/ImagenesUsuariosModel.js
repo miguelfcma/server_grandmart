@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelizeDB } from "../../database/db.js";
 
 export const ImagenUsuario = sequelizeDB.define(
-  "imagenesUsuario",
+  "imagenesusuario",
   {
     id: {
       type: DataTypes.BIGINT(20).UNSIGNED,
