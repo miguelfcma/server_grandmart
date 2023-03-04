@@ -30,6 +30,9 @@ export const createImagenUsuario = async (req, res) => {
 export const getImagenesUsuario = async (req, res) => {
   try {
     const imagenes = await ImagenUsuario.findAll();
+    if (imagenes.length === 0) {
+      return res.status(404).json({ message: "No se encontraron imagenes" });
+    }
     res.status(200).json(imagenes);
   } catch (error) {
     console.log(error);

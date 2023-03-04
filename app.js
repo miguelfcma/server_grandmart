@@ -12,13 +12,7 @@ const app = express();
 
 //  SETTINGS
 // Configuración de CORS
-app.use(
-  cors({
-    origin: "*", // O el dominio que permitirás
-  })
-);
-
-
+app.use(cors());
 
 //  MIDDLAWARES
 //esto permitira que cada vez que se envia algo al servidor en formato json
@@ -29,8 +23,6 @@ app.use(morgan("dev"));
 //  GLOBAL VARIABLES
 
 //  ROUTES
-
-
 
 app.use(usuariosRoutes);
 app.use(categoriaRoutes);
