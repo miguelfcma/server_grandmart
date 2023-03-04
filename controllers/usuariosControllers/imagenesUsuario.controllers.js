@@ -30,7 +30,7 @@ export const createImagenUsuario = async (req, res) => {
 export const getImagenesUsuario = async (req, res) => {
   try {
     const imagenes = await ImagenUsuario.findAll();
-    res.status(200).json({ imagenes: imagenes });
+    res.status(200).json(imagenes);
   } catch (error) {
     console.log(error);
     res.status(500).json({ mensaje: "Error al obtener las imágenes" });
