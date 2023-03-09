@@ -27,7 +27,7 @@ export const getCategorias = async (req, res) => {
 };
 
 export const createCategoria = async (req, res) => {
-  const { nombre, id_categoria } = req.body;
+  const { nombre, id_parent } = req.body;
   try {
     // Buscar si la categoría ya existe
     const existingCategoria = await Categoria.findOne({
@@ -38,7 +38,7 @@ export const createCategoria = async (req, res) => {
     if (!existingCategoria) {
       const newCategoria = await Categoria.create({
         nombre,
-        id_categoria,
+        id_parent,
       });
       res.status(200).json(newCategoria);
     } else {
@@ -51,7 +51,7 @@ export const createCategoria = async (req, res) => {
 };
 
 export const updateCategoria = async (req, res) => {
-  const { nombre, id_categoria } = req.body; // Obtiene los nuevos valores desde el cuerpo de la solicitud
+  const { nombre, id_parent } = req.body; // Obtiene los nuevos valores desde el cuerpo de la solicitud
   try {
     //Verifica existencia
     const categoria = await Categoria.findByPk(req.params.id);
@@ -61,7 +61,7 @@ export const updateCategoria = async (req, res) => {
     // Actualiza la categoría con los nuevos valores
     const updateCategoria = await categoria.update({
       nombre,
-      id_categoria,
+      id_parent,
     });
 
     // Envía una respuesta exitosa

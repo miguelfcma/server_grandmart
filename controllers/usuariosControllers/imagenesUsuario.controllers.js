@@ -50,9 +50,7 @@ export const getImagenUsuarioById = async (req, res) => {
       path.dirname(new URL(import.meta.url).pathname).substring(4),
       "..",
       "..",
-      "public",
-      "avatars",
-      imagen.nombre
+      imagen.ruta
     );
     console.log(rutaImagen);
     res.sendFile(rutaImagen, { root: "/" });

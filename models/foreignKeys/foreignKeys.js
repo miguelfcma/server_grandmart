@@ -280,6 +280,7 @@ Servicio.belongsTo(Usuario, {
   foreignKey: "id_usuario",
   targetId: "id",
 });
+/*
 Usuario.hasMany(MensajeBuzon, {
   foreignKey: "id_usuario",
   sourceKey: "id",
@@ -288,7 +289,7 @@ MensajeBuzon.belongsTo(Usuario, {
   foreignKey: "id_usuario",
   targetId: "id",
 });
-/////
+////
 Categoria.hasMany(Categoria, {
   foreignKey: "id_categoria",
   sourceKey: "id",
@@ -299,3 +300,4 @@ Categoria.belongsTo(Categoria, {
   targetId: "id",
 
 });
+*/

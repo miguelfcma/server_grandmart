@@ -14,13 +14,21 @@ export const  Categoria = sequelizeDB.define(
         type: DataTypes.STRING(150),
         allowNull: false,
       },
-      id_categoria: {
+      id_parent: {
         type: DataTypes.BIGINT(20).UNSIGNED,
-        primaryKey: false,
-        autoIncrement: false,
-        allowNull: false,
+        allowNull: true,
       },
     },
     { timestamps: true }
   );
+  Categoria.hasMany(Categoria, {
+    foreignKey: "id_parent",
+    sourceKey: "id",
+  
+  });
+  Categoria.belongsTo(Categoria, {
+    foreignKey: "id_parent",
+    targetId: "id",
+  
+  });
   

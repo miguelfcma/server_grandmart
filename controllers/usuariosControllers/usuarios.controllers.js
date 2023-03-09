@@ -61,9 +61,7 @@ export const createUsuario = async (req, res) => {
         password,
         tipoUsuario,
       });
-      res
-        .status(201)
-        .json({message: "Usuario creado correctamente" });
+      res.status(201).json({ message: "Usuario creado correctamente" });
     } else {
       // Si el usuario ya existe, devolver un mensaje de error
       return res
@@ -108,9 +106,7 @@ export const updateUsuario = async (req, res) => {
     });
 
     // Envía una respuesta exitosa
-    res
-      .status(200)
-      .json({ message: "Usuario actualizado correctamente" });
+    res.status(200).json({ message: "Usuario actualizado correctamente" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
@@ -130,5 +126,41 @@ export const deleteUsuario = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
+  }
+};
+export const getUsuarioLogin = async (req, res) => {
+  try {
+    console.log(req.body);
+
+    const { email, password } = req.body;
+
+    // Buscar un usuario con el email recibido
+    const usuario = await Usuario.findOne({
+      where: { email },
+    });
+    // IF USUARIO == NULL
+    if (!usuario) {
+      return res.status(400).json({ mensaje: "Credenciales de inicio de sesión incorrectas" });
+    }
+
+    // Verificar la contraseña
+    // Encripta La contraseña 
+    //const contrasenaValida = await bcrypt.compare(password, usuario.password);
+    if (password != usuario.password) {
+      return res.status(400).json({ mensaje: "Credenciales de inicio de sesión incorrectas" });
+    }
+
+    // Si se encontró el usuario y la contraseña es válida, incluir el atributo "tipoUsuario" en la respuesta
+    return res.status(200).json({
+      mensaje: "Inicio de sesión exitoso",
+      usuario: {
+        id: usuario.id,
+        email: usuario.email,
+        tipoUsuario: usuario.tipoUsuario,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensaje: "Ha ocurrido un error en el servidor" });
   }
 };
